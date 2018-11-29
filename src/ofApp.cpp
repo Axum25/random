@@ -1,10 +1,48 @@
 #include "ofApp.h"
+#include <random>
+#include <vector>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 jewel.load("diamond.png");// image to use (must be stored in "random/bin/data" folder)
-X = {500, 1000, 30, 100, 300, 200, 750, 380 };// set of x-coordinates for jewel
-Y = {630, 400, 900,40, 200, 0, 90, 30}; //set of y-coordinates for jewel
+X = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};// set of x-coordinates for jewel
+Y = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; //set of y-coordinates for jewel
+/**
+	std::random_device seed; //U.R.B.G. (Uniformed Random Bit Genorator)
+	std::mt19937 mt_Eng(seed()); //P.R.N.G. (Psuedo Random Number Generator) -Mersenne Twister-
+	std::uniform_int_distribution <int> uniformX(0,1200); // (min, max) distribution: UNIFORMED
+	std::uniform_int_distribution <int> uniformY(0,970);
+
+	for (int i = 0; i < 20; i++){
+			X[i] = uniformX(mt_Eng);
+			Y[i] = uniformY(mt_Eng);
+	}
+
+
+	//debug
+		cout << endl << "(X,Y) cordinates -Uniform Distribution-:" << endl << endl;
+	for (int i = 0; i < 20; i++){
+		cout << X[i] << "," << Y[i] << endl;
+		}
+*/
+
+			
+	std::random_device seed;//U.R.B.G. (Uniformed Random Bit Genorator)
+	std::mt19937 mt_Eng(seed()); //P.R.N.G. (Psuedo Random Number Generator) -Mersenne Twister-
+	std::normal_distribution<float> normalX(1000,15); //(mean, standard deviation) distribution: NORMAL
+	std::normal_distribution<float> normalY(800,15);
+
+		for (int i = 0; i < 20; i++){
+			X[i] = normalX(mt_Eng);
+			Y[i] = normalY(mt_Eng);
+		}
+
+		//debug
+		cout << endl << "(X,Y) cordinates -Normal Distribution-:" << endl << endl;
+	for (int i = 0; i < 20; i++){
+		cout << X[i] << "," << Y[i] << endl;
+		}
+
 }
 
 //--------------------------------------------------------------
@@ -19,6 +57,7 @@ ofBackground(0);
 for(auto i = 0u; i < X.size(); i++)
  {
    jewel.draw(X[i], Y[i]);
+   
  }
 }
 
